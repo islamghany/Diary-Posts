@@ -1,0 +1,207 @@
+
+
+.btn{
+  margin:.8rem;
+  font-size:1.4rem;
+  min-width: 64px;
+  padding:1rem 2rem;
+  text-transform:uppercase;
+  border-radius: 4px;
+  letter-spacing: 0.05857em;
+  font-family: 'Roboto', sans-serif;
+  background:transparent;
+  position: relative;
+  border: 1px solid;
+  transition: background-color 250ms      cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  cursor:pointer;
+  outline:none;
+  
+  &--outlined{
+    
+    &-warning{
+      @include outlined($warning,rgba(0,0,0,.7));
+    }
+    &-primary{
+      @include outlined($primary,$white);
+    }
+     &-secondary{
+      @include outlined($secondary,$white);
+    }
+     &-dark{
+      @include outlined($dark,$white);
+    }
+    &-success{
+      @include outlined($success,$white);
+    }
+    &-fairuz{
+     @include outlined($fairuz,$white);
+    }
+    &-info{
+     @include outlined($info,$white);
+    }
+      &-link{
+     @include outlined($link,$white);
+    }
+     &-danger{
+     @include outlined($danger,$white);
+    }
+    
+     &-default{
+       border:1px solid #{$default}3b;
+       &:hover{
+         background:#{$default}14;
+       }
+    }
+    
+  }
+  &--contained{
+    &-warning{
+      @include contained($warning,rgba(0,0,0,.7),#b99f1c);
+    }
+    &-primary{
+      @include contained($primary,$white,#150963);
+    }
+     &-secondary{
+      @include contained($secondary,$white,#9a0036);
+    }
+     &-danger{
+      @include contained($danger,$white,#9a0036);
+    }
+     &-dark{
+      @include contained($dark,$white,#131d21);
+    }
+    &-success{
+      @include contained($success,$white,#20b955);
+    }
+     &-fairuz{
+      @include contained($fairuz,$white,#053c52);
+    }
+     &-info{
+      @include contained($info,$white,#13679e);
+    }
+     &-link{
+      @include contained($link,$white,#2356a9);
+    }
+     
+    &-default{
+      @include contained(#e0e0e0,$default,#d5d5d5);
+      background-color: #e0e0e0;
+    }
+  
+    &-bluer{
+      background:rgba(0,0,0,.8);
+      color:$white;
+      @supports(backdrop-filter:blur(10px)) or (-webkit-backdrop-filter:blur(10px)){
+         -webkit-backdrop-filter: blur(10px);
+           backdrop-filter: blur(10px);  
+        color:grey;
+        background:rgba(0,0,0,0.1);
+        border:1px solid transparent;
+      }
+    }
+  }
+  &--iconed{
+    &-primary{
+      @include iconed($link,$white,#2356a9,"\f05a");
+    }
+      &-secondary{
+      @include iconed($secondary,$white,#9a0036,"\f07a");
+    }
+     &-dark{
+      @include iconed($dark,$white,#131d21,"\f1d8");
+    }
+    &-success{
+      @include iconed($success,$white,#20b955,"\f1d8");
+    }
+  }
+
+  &--wave{
+    &-primary{
+      @include wave($primary,$white);
+    }
+    &-danger{
+      @include wave($danger,$white);
+    }
+    &-white{
+      @include wave($white,#777);
+    }
+    &-success{
+      @include wave($success,$white);
+    }
+    &-dark{
+      @include wave($dark,$white);
+    }
+  }
+  &--circled{
+    &-menu{
+      min-width:4rem;
+      height:4rem;
+      border-radius:100%;
+      padding:0;
+      border:none;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color: rgba(0, 0, 0, 0.54);
+      &:hover{
+        background-color: rgba(0, 0, 0, 0.08);
+      }
+      svg{
+        fill: currentColor;
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    user-select: none;
+      }
+    }
+  }
+}
+
+
+
+[ripple] {
+  overflow: hidden;
+}
+
+.ripple__ink {
+  background: #fff;
+  border-radius: 100%;
+  height: 10em;
+  opacity: 0;
+  position: absolute;
+  width: 10em;
+}
+
+.ripple--active .ripple__ink {
+  animation: ink-ripple .5s ease-in-out 0s 1;
+}
+
+@keyframes ink-ripple {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+.bg-blue{
+  background:$link;
+}
+.circle{
+  display: inline-block;
+  padding:1.5rem 4rem;
+  border-radius:10rem;
+  &:hover{
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+    transform: translateY(-1px);
+
+  }
+  &::after{
+    border-radius: 10rem;
+  }
+}

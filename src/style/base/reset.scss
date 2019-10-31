@@ -1,0 +1,56 @@
+
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:inherit;
+}
+html{
+
+    font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+@include respond(tab-land) { // width < 1200?
+    font-size: 56.25%; //1 rem = 9px, 9/16 = 50%
+}
+
+@include respond(tab-port) { // width < 900?
+    font-size: 50%; //1 rem = 8px, 8/16 = 50%
+}
+
+@include respond(big-desktop) {
+    font-size: 75%; //1rem = 12, 12/16
+}
+}
+
+body{
+    box-sizing: border-box;
+    padding: 0;
+    margin:0;
+    overflow-x: hidden !important;
+}
+.block{
+    display:block !important;
+    width:100% !important;
+  }
+  .mg-tp-5{
+  margin-top: 5rem !important;
+  }
+  .mg-tp-10{
+      margin-top: 10rem !important;
+
+  }
+
+  img{
+      width:100%;
+      max-width: 100%;
+  }
+  .hidden{
+    z-index:-1 !important;
+  }
+  .none{
+      display: none;
+  }
+  hr{
+      border:1px solid #e0e0e0;
+     
+  }

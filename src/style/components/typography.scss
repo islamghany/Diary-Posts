@@ -1,0 +1,82 @@
+
+.bang{
+  font-family:$bang;
+}
+.comf{
+  font-family:$comf;
+}
+.ebg{
+  font-family:$ebg;
+}
+.lato{
+  font-family:$lato;
+}
+.mont{
+  font-family:$mont;
+}
+.rele{
+  font-family:$rele;
+}
+.rob{
+  font-family:$rob;
+}
+.src{
+  font-family:$src;
+}
+.one{
+  font-family:$one;
+}
+.athi{
+  font-family:$athi;
+}
+.car{
+  font-family:$car;
+}
+.font-hg{
+  font-size:5.38rem;
+}
+.font-lg{
+  font-size:3.74rem;
+}
+.font-md{
+  font-size:2.74rem;
+}
+.font-sm{
+  font-size:1.96rem;
+}
+.font-nm{
+   font-size:1.6rem;
+}
+.font-ty{
+   font-size:1.4rem;
+}
+.heading{
+  font-weight:100;
+  line-height:1.5;
+  letter-spacing:0.04rem;
+}
+.capitalize{
+  text-transform:capitalize;
+}
+.lower{
+  text-transform:lowercase;
+}
+.upper{
+  text-transform:uppercase;
+}
+@for $i from 100 through 700{
+  .weight-#{$i}{
+    font-weight:#{$i};
+  }
+}
+.font-group{
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  :not(:last-child){
+    margin-right:2rem;
+  }
+}
+p{
+  letter-spacing:0.02rem;
+}
