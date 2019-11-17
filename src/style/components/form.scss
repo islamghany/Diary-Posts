@@ -22,6 +22,22 @@
     display: block;
     font-family: 'Roboto', Times, serif;
     margin-bottom:1.5rem;
+    &-share{
+       background-color: #fff;
+        color: #363636;
+        transition:all .3s ease;
+            font-family: 'Roboto', Times, serif;
+max-width: 100%;
+    width: 100%;
+    min-height: 7rem;
+    font-size: 1.4rem;
+border:none !important;
+&:focus{
+  outline: 0; 
+  border:none !important;
+  box-shadow: none !important;
+  }
+    }
     &:hover{
       border-color: #b5b5b5;
     }
@@ -96,11 +112,14 @@
         font-family:fontAwesome;
         font-size:1.4rem;
         position:absolute;
-        top:.95rem;
+        top:.7rem;
         right:.9rem;
         color: #3273dc;
         transition:all .3 ease;
          z-index:10;
+         @include respond(tab-port){
+            top:.5rem;
+         }
       }
     }
     
@@ -154,6 +173,11 @@
     vertical-align: -.125em;
       
     }
+  }
+  &__header{
+    font-size:2rem;
+    color:$link;
+    padding: 0  0  2rem 0;
   }
   &__label{
     display: inline-block;

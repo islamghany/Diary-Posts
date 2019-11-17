@@ -24,12 +24,12 @@ this.setState({
   render(){
       return(<div style ={{marginTop:'10rem'}}>
         <h1 className="heading font-md inco">
-         Mack A Comment..
+         Make A Comment..
          </h1>
         <div className="form">
         	<div className="form__container">
              <form onSubmit={this.handleSumbit}>
-             	<textarea required name="comment" onChange={this.handleChange} placeholder="Write a comment.." className="form__textarea"></textarea>
+             	<textarea required name="comment" onChange={this.handleChange} value={this.state.comment} placeholder="Write a comment.." className="form__textarea"></textarea>
             <button className="btn btn--contained-info mg-none mg-tp">submit</button>
              </form>
         	</div>

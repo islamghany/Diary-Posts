@@ -1,101 +1,201 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {fetchNotes,saveNote,deleteNote} from '../action.js';
-import {getUser} from '../useractions';
-import {Link} from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  fetchNotes,
+  saveNote,
+  deleteNote,
+  like,
+  currentUser,
+  unLike
+} from "../action.js";
+import { getUser } from "../useractions";
+import UserModel from "./userModel";
+import ShareModel from "./shareModel";
+import RenderShared from "./posts/renderShared";
+import RenderPosted from "./posts/renderPosted";
 
-import _ from 'lodash'
-class App  extends React.Component{
-	state={
-		text:'',
-		body:'',
-		uid:'',
-	   photoURL:'',
-	   displayName:''
-	}
-	// componentDidMount(){
- //          this.props.fetchNotes();
- //          this.props.getUser();
-	// }
-    handleChang=(e)=>{
-      this.setState({
-      	[e.target.name]:e.target.value
-      })
+class App extends React.Component {
+  state = {
+    text: "",
+    body: "",
+    uid: "",
+    photoURL: "",
+    displayName: "",
+    likedPosts: "",
+    type: "liked",
+    post: {},
+    sortBy: "recent",
+    sortedData: []
+  };
+
+  componentWillMount() {
+    if (this.props.user.uid) {
+      this.props.currentUser(this.props.user.uid);
     }
-handleSubmit=(e)=>{
-e.preventDefault();
+  }
+  handleChang = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+  handelPost = posts => {
+    this.setState({
+      post: posts
+    });
+  };
+  handleSubmit = e => {
+    e.preventDefault();
 
-const note ={
-	...this.state,
-	uid:this.props.user.uid,
-	photoURL:this.props.user.photoURL,
-	displayName:this.props.user.displayName
-}
-this.props.saveNote(note)
-this.setState({
-	text:'',body:'',uid:this.props.user.uid
-})
+    const note = {
+      text: this.state.text,
+      body: this.state.body,
+      uid: this.props.user.uid,
+      photoURL: this.props.user.photoURL,
+      displayName: this.props.user.displayName,
+      postId: ""
+    };
+    this.props.saveNote(note, this.props.user.uid);
+    this.setState({
+      text: "",
+      body: "",
+      uid: this.props.user.uid
+    });
+  };
 
-}
+  renderModelOfUser = (note, type) => {
+    if (note[type]) {
+      this.setState({ likedPosts: note[type], type: type });
+      document.querySelector("#model").classList.toggle("scale");
+    }
+  };
 
-renderNotes(){
+  renderNotes() {
+    const sortBy = Object.keys(this.props.notes).map((key, i) => {
+      return {
+        ...this.props.notes[key],
+        noteId: Object.keys(this.props.notes)[i]
+      };
+    });
 
-		return _.map(this.props.notes ,(note,key)=>{
-			return(
-                        <div className="message white post" key={key}>
-                       <div className="message__header">
-                      <div className="user">
-                        <div className="user__info">
-                              <img className="user__image"  alt ='user' src={note.photoURL}/>
-                              <h1 className="heading font-sm capitalize mont">{note.displayName}</h1>
-                        </div>
-                     </div> 
-                  {note.uid === this.props.user.uid && (          <button className="btn btn--circled-menu  dropdown" onClick={()=>{
-                         	document.querySelector(`#${key}`).classList.toggle('visible');
-                         }}>
-      <svg className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
-    <div className="dropdown-menu" id={key}>
-       <span onClick={()=>{
-                          this.props.deleteNote(key);
-              }}>Delete</span>
-       <Link to={`/${key}/edit`}>Updtat</Link>
-     </div> 
-    </button>)}
-                        </div>
-                      <Link to={`/${key}`}>    <div className="message__content">
-                             <h1 className="heading font-lg rele capitalize">{note.text}</h1>
+    if (this.state.sortBy === "feature") {
+      sortBy.sort((a, b) => {
+        let m = a["comments"] ? Object.keys(a["comments"]).length : 0;
+        let n = b["comments"] ? Object.keys(b["comments"]).length : 0;
+        return n - m;
+      });
+    } else if (this.state.sortBy === "popular") {
+      sortBy.sort((a, b) => {
+        let m = a["liked"] ? Object.keys(a["liked"]).length : 0;
+        let n = b["liked"] ? Object.keys(b["liked"]).length : 0;
+        return n - m;
+      });
+    } else {
+      sortBy.reverse();
+    }
 
-                        <p className="heading font-sm alt">{note.body}</p>
-                       
-                        </div>   
-                        </Link>                   
-                        </div>
-				)
-		})
-	
-}
-	render(){
-		return(
-			<div>
-		 <div className="form__wrapper">
-		  <div className="form">
-		  	<div className="form__container">
-		  	<form  onSubmit={this.handleSubmit}>
-              <input type="text" name="text" className="form__input" maxLength="25"  required value={this.state.text} onChange={this.handleChang}  placeholder="Title.." />
-              <textarea name="body" placeholder="Post.."  maxLength="255" value={this.state.body} required onChange={this.handleChang} className="form__textarea"></textarea>
-               <button className="btn btn--contained-info circle block mg-none mg-tp">Save</button>
+    return sortBy.map(note => {
+      return note["caption"] || note["caption"] === "" ? (
+        <RenderShared
+          user={this.props.user}
+          renderModelOfUser={this.renderModelOfUser}
+          handelPost={this.handelPost}
+          currentUser={this.props.currUser}
+          note={note}
+          key={note.noteId}
+        />
+      ) : (
+        <RenderPosted
+          user={this.props.user}
+          renderModelOfUser={this.renderModelOfUser}
+          handlePost={this.handelPost}
+          currentUser={this.props.currUser}
+                    note={note}
+
+          key={note.noteId}
+        />
+      );
+    });
+  }
+  handleSelect = e => {
+    this.setState({
+      sortBy: e.target.value
+    });
+  };
+  render() {
+    if(this.props.currUser){
+    return (
+      <div>
+        <UserModel likedPosts={this.state.likedPosts} type={this.state.type} />
+        <ShareModel note={this.state.post} user={this.props.user} />
+        <div className="form__wrapper">
+          <div className="form">
+            <div className="form__container">
+              <form onSubmit={this.handleSubmit}>
+                <input
+                  type="text"
+                  name="text"
+                  className="form__input"
+                  maxLength="25"
+                  required
+                  value={this.state.text}
+                  onChange={this.handleChang}
+                  placeholder="Title.."
+                />
+                <textarea
+                  name="body"
+                  placeholder="Post.."
+                  maxLength="255"
+                  value={this.state.body}
+                  required
+                  onChange={this.handleChang}
+                  className="form__textarea"
+                ></textarea>
+                <button className="btn btn--contained-info circle block mg-none mg-tp">
+                  Post
+                </button>
               </form>
-		  	</div>
-		  </div>
-		</div>
-		<div className="notes form__wrapper">
-           {this.props.notes && this.renderNotes()}
-		</div>
-		</div>
-		)
-	}
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div className="notes form__wrapper">
+          <div>
+            <div className="form__unit select">
+              <label htmlFor="sort" className="form__label mg-right">
+                {" "}
+                Sort by
+              </label>
+              <select
+                name="sort"
+                defaultValue={this.props.sortBy}
+                onChange={this.handleSelect}
+              >
+                <option value="recent">Upload date</option>
+                <option value="popular">Most Liked</option>
+                <option value="feature">Most Commented</option>
+              </select>
+            </div>
+          </div>
+          {this.props.notes && this.renderNotes()}
+        </div>
+      </div>
+    );
+  }
+  else{
+    return(
+      <div >loading</div>
+      )
+  }
+  }
 }
-const mapState=(state)=>{
-  return{notes:state.notes,user:state.user}
-}
-export default connect(mapState,{fetchNotes,saveNote,deleteNote,getUser})(App);
+const mapState = state => {
+  return {
+   notes: state.notes,
+    user: state.user,
+   currUser: state.currentUser };
+};
+export default connect(
+  mapState,
+  { fetchNotes, saveNote, deleteNote, getUser, currentUser, like, unLike }
+)(App);

@@ -1,35 +1,173 @@
-import React from 'react'
-import {googleLogin} from '../useractions.js';
-import {connect} from 'react-redux';
+import React from "react";
+import { googleLogin, facebookLogin } from "../useractions.js";
+import { connect } from "react-redux";
 
-class Login extends React.Component{
-
-
-	componentWillMount(){
-       if(this.props.user !== null){
-       	this.props.history.push('/');
-       }
-	}
-	 componentWillReceiveProps(nextProps){
-		if(nextProps.user !==null) this.props.history.push('/')
-	}
-	render(){
-		    return(
-		    	<div className="log">
-
-                       <div className="form__wrapper text-center mg-tp-10">	
-                       <h1 className="heading font-md rele capitalize text-center">
-                      log in to get into the website
-                       </h1>
-                           <button className="btn btn--wave-success mg-tp-5 " onClick={()=>{
-                           	this.props.googleLogin();
-                           }}>log in with google</button>
-                       </div>
-                   </div>
-		    	)
-	}
+class Login extends React.Component {
+  componentWillMount() {
+    if (this.props.user !== null) {
+      this.props.history.push("/");
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user !== null) this.props.history.push("/");
+  }
+  render() {
+    return (
+      <div className="log">
+        <div className="content">
+          <div className="logo">
+            <svg
+              id="Layer_1"
+              enableBackground="new 0 0 512 512"
+              height="150px"
+              viewBox="0 0 512 512"
+              width="150px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m50.661 140.579c0-2.259 1.839-4.097 4.1-4.097h364.41v-43.372c0-2.804-2.295-5.097-5.1-5.097h-408.971c-2.805 0-5.1 2.293-5.1 5.097v223.466c0 2.805 2.295 5.098 5.1 5.098h45.561z"
+                fill="#ffdd57"
+              ></path>
+              <path
+                d="m32.451 316.576v-223.466c0-2.804 2.295-5.097 5.1-5.097h-32.451c-2.805 0-5.1 2.293-5.1 5.097v223.466c0 2.805 2.295 5.098 5.1 5.098h32.451c-2.805-.001-5.1-2.293-5.1-5.098z"
+                fill="#ffdd57"
+              ></path>
+              <path
+                d="m453.107 363.419v-227.937h-398.346c-2.805 0-5.1 2.294-5.1 5.097v223.466c0 2.805 2.295 5.098 5.1 5.098h50.528l25.628 35.535c1.642 2.276 4.326 2.276 5.966 0l25.628-35.535h291.521c-.555-1.985-.925-4.135-.925-5.724z"
+                fill="#209cee"
+              ></path>
+              <path
+                d="m81.899 364.045v-223.466c0-2.803 2.295-5.097 5.1-5.097h-32.238c-2.805 0-5.1 2.294-5.1 5.097v223.466c0 2.805 2.295 5.098 5.1 5.098h32.239c-2.805-.001-5.101-2.294-5.101-5.098z"
+                fill="#209cee"
+              ></path>
+              <g fill="#f9f9f9">
+                <path d="m413.379 197.826h-319.367c-4.142 0-7.5-3.357-7.5-7.5s3.358-7.5 7.5-7.5h319.367c4.142 0 7.5 3.357 7.5 7.5 0 4.142-3.358 7.5-7.5 7.5z"></path>
+                <path d="m413.379 239.49h-319.367c-4.142 0-7.5-3.357-7.5-7.5s3.358-7.5 7.5-7.5h319.367c4.142 0 7.5 3.357 7.5 7.5 0 4.142-3.358 7.5-7.5 7.5z"></path>
+                <path d="m413.379 281.15h-67.754c-4.142 0-7.5-3.357-7.5-7.5s3.358-7.5 7.5-7.5h67.754c4.142 0 7.5 3.357 7.5 7.5s-3.358 7.5-7.5 7.5z"></path>
+                <path d="m308.539 281.15h-214.527c-4.142 0-7.5-3.357-7.5-7.5s3.358-7.5 7.5-7.5h214.526c4.142 0 7.5 3.357 7.5 7.5s-3.357 7.5-7.499 7.5z"></path>
+                <path d="m263.248 322.811h-169.236c-4.142 0-7.5-3.357-7.5-7.5s3.358-7.5 7.5-7.5h169.235c4.142 0 7.5 3.357 7.5 7.5s-3.357 7.5-7.499 7.5z"></path>
+              </g>
+              <path
+                d="m512 153.554v-32.702c0-5.696-4.659-10.356-10.354-10.356h-39.185c-5.695 0-10.355 4.66-10.355 10.356v32.702z"
+                fill="#fd646f"
+              ></path>
+              <path
+                d="m484.908 110.496h-22.447c-5.695 0-10.355 4.66-10.355 10.356v31.702h22.447v-31.702c.001-5.696 4.66-10.356 10.355-10.356z"
+                fill="#fc4755"
+              ></path>
+              <path
+                d="m452.107 362.419v1c0 2.848 1.068 7.249 2.373 9.781l25.201 48.888c1.305 2.532 3.44 2.532 4.745 0l25.201-48.888c1.305-2.532 2.373-6.934 2.373-9.781v-1z"
+                fill="#fdd1a3"
+              ></path>
+              <path
+                d="m476.927 373.2c-1.305-2.532-2.373-6.934-2.373-9.781v-1h-22.447v1c0 2.848 1.068 7.249 2.373 9.781l25.201 48.888c1.305 2.532 3.44 2.532 4.745 0l8.851-17.17z"
+                fill="#ffbb85"
+              ></path>
+              <path
+                d="m484.426 422.088 17.222-33.41h-39.189l17.222 33.41c1.305 2.532 3.44 2.532 4.745 0z"
+                fill="#3d5959"
+              ></path>
+              <path
+                d="m452.107 152.554h59.893v210.864h-59.893z"
+                fill="#fee567"
+              ></path>
+              <path d="m474.554 152.554h15v210.864h-15z" fill="#fda613"></path>
+            </svg>
+          </div>
+          <div className="heading">Welcome in Diary Posts</div>
+          <p className="heading mg-tp">Login to Continue</p>
+          <button
+            className="btn btn--wave-white circle"
+            onClick={() => {
+              this.props.googleLogin();
+            }}
+          >
+            <span className="icon">
+              <svg
+                width="25px"
+                height="25px"
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 512 512"
+                style={{ enableBackground: "new 0 0 512 512" }}
+                xmlSpace="preserve"
+              >
+                <path
+                  style={{ fill: "#FBBB00" }}
+                  d="M113.47,309.408L95.648,375.94l-65.139,1.378C11.042,341.211,0,299.9,0,256
+	c0-42.451,10.324-82.483,28.624-117.732h0.014l57.992,10.632l25.404,57.644c-5.317,15.501-8.215,32.141-8.215,49.456
+	C103.821,274.792,107.225,292.797,113.47,309.408z"
+                />
+                <path
+                  style={{ fill: "#518EF8" }}
+                  d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451
+	c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535
+	c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"
+                />
+                <path
+                  style={{ fill: "#28B446" }}
+                  d="M416.253,455.624l0.014,0.014C372.396,490.901,316.666,512,256,512
+	c-97.491,0-182.252-54.491-225.491-134.681l82.961-67.91c21.619,57.698,77.278,98.771,142.53,98.771
+	c28.047,0,54.323-7.582,76.87-20.818L416.253,455.624z"
+                />
+                <path
+                  style={{ fill: "#F14336" }}
+                  d="M419.404,58.936l-82.933,67.896c-23.335-14.586-50.919-23.012-80.471-23.012
+	c-66.729,0-123.429,42.957-143.965,102.724l-83.397-68.276h-0.014C71.23,56.123,157.06,0,256,0
+	C318.115,0,375.068,22.126,419.404,58.936z"
+                />
+                <g></g>
+              </svg>
+            </span>
+            <span className="text"> log in with google </span>{" "}
+          </button>
+          <button
+            className="btn btn--wave-face circle"
+            onClick={() => {
+              this.props.facebookLogin();
+            }}
+          >
+            <span className="icon">
+              <svg
+                width="25px"
+                height="25px"
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 408.788 408.788"
+                style={{ enableBackground: "new 0 0 408.788 408.788" }}
+                xmlSpace="preserve"
+              >
+                <path
+                  fill="#fff"
+                  d="M353.701,0H55.087C24.665,0,0.002,24.662,0.002,55.085v298.616c0,30.423,24.662,55.085,55.085,55.085
+	h147.275l0.251-146.078h-37.951c-4.932,0-8.935-3.988-8.954-8.92l-0.182-47.087c-0.019-4.959,3.996-8.989,8.955-8.989h37.882
+	v-45.498c0-52.8,32.247-81.55,79.348-81.55h38.65c4.945,0,8.955,4.009,8.955,8.955v39.704c0,4.944-4.007,8.952-8.95,8.955
+	l-23.719,0.011c-25.615,0-30.575,12.172-30.575,30.035v39.389h56.285c5.363,0,9.524,4.683,8.892,10.009l-5.581,47.087
+	c-0.534,4.506-4.355,7.901-8.892,7.901h-50.453l-0.251,146.078h87.631c30.422,0,55.084-24.662,55.084-55.084V55.085
+	C408.786,24.662,384.124,0,353.701,0z"
+                />
+                <g></g>
+              </svg>
+            </span>
+            <span className="text"> log in with facebook </span>{" "}
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
-const mapState=(state)=>{
-	return{user:state.user}
-}
-export default connect(mapState,{googleLogin})(Login);
+const mapState = state => {
+  return { user: state.user };
+};
+export default connect(
+  mapState,
+  { googleLogin, facebookLogin }
+)(Login);
