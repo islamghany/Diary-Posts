@@ -9,3 +9,8 @@ go to diary posts the directory and run the command `npm install`.
 ![diary posts](/public/1.png "posts")   
 
 
+![diary posts](/public/2.png "posts")   
+
+
+
+![diary posts](/public/3.png "posts")   
