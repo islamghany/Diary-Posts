@@ -4,6 +4,27 @@ import { deleteNote, like, unLike } from "../../action.js";
 import { Link } from "react-router-dom";
 
 class RenderPosted extends React.Component {
+
+  constructor(props){
+      super(props);
+      this.drop = React.createRef()
+  }
+  componentDidMount() {
+    window.addEventListener('click', this.onClickOutsideHandler);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.onClickOutsideHandler);
+  }
+
+  onClickHandler() {
+      this.drop.current.classList.toggle('visible');
+  }
+  onClickOutsideHandler=()=>{
+    if(this.drop && this.drop.current && this.drop.current.classList.contains('visible')){
+       this.drop.current.classList.toggle('visible');
+    }
+  }
   handlelove(noteid) {
     if (this.props.note.liked && this.props.note.liked[this.props.user.uid]) {
       this.props.unLike(noteid, this.props.user.uid, "liked");
@@ -63,10 +84,9 @@ class RenderPosted extends React.Component {
             {note.uid === this.props.user.uid && (
               <button
                 className="btn btn--circled-menu  dropdown"
-                onClick={() => {
-                  document
-                    .querySelector(`#${note.noteId}`)
-                    .classList.toggle("visible");
+                onClick={(e) => {
+                    e.stopPropagation();
+                    this.onClickHandler();
                 }}
               >
                 <svg
@@ -84,6 +104,7 @@ class RenderPosted extends React.Component {
                     e.stopPropagation();
                   }}
                   id={note.noteId}
+                  ref={this.drop}
                 >
                   <span
                     onClick={() => {

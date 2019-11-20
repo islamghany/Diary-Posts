@@ -11,7 +11,7 @@ componentDidMount(){
 	this.props.allUsers();
 }
  renderUser=(user)=>{
- 	const id =this.props.match.params.id;
+ 	const id =this.props.match.params.id.toLowerCase();
  	const {info } = user;
         if(info.displayName.toLowerCase().indexOf(id) >= 0 ||  (info.nickname && info.nickname.toLowerCase().indexOf(id)>=0) ){
         	return( 	<div className="profile__header mg-tp">

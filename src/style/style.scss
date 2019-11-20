@@ -15,6 +15,9 @@
   display: flex;
 }
 
+.ui.top.left.pointing.dropdown>.menu{
+  left:-6rem;
+}
 .searchTerm {
   width: 100%;
   border: 3px solid #00B4CC;
@@ -416,7 +419,7 @@ hr{
     display: flex;
      flex-direction: column;
      @include respond(phone){
-      width:95%;
+      width:100%;
      }
    }
 }
@@ -490,7 +493,7 @@ h1{
   padding: 0;
 }
 .ui.dropdown>.text{
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 $grey: rgba(0, 0, 0, .5);
 $blue: rgba(0, 0, 255, .5);
@@ -558,12 +561,12 @@ a{
 }
 
 
-@media(max-width: 356px) {
-   nav .ui.avatar.image {
-    display: none !important;
-  }
-  .ui.dropdown > .text{
-    font-size:1.3rem;
-  }
+// @media(max-width: 356px) {
+//    nav .ui.avatar.image {
+//     display: none !important;
+//   }
+//   .ui.dropdown > .text{
+//     font-size:1.3rem;
+//   }
   
-}
+// }
